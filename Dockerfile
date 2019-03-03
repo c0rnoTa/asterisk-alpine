@@ -47,7 +47,9 @@ RUN set -xe \
        unixodbc-dev \
        mariadb-connector-c
 
-# Musl patch. According to https://paulgorman.org/technical/asterisk-alpine-lxc.txt
+# Musl patch.
+# According to https://paulgorman.org/technical/asterisk-alpine-lxc.txt
+#
 COPY ["patches/*.patch","./asterisk/"]
 
 RUN cd asterisk; for PATCH_FILE in $(ls *.patch); do patch -p1 < $PATCH_FILE; done
@@ -86,8 +88,12 @@ RUN set -xe \
        libsrtp-dev \
        libical-dev \
     && cd patch && ./configure --prefix=/usr && make && make install \
-    && cd ../asterisk && rm -Rf /usr/src/patch && make clean && make distclean && ./contrib/scripts/get_mp3_source.sh && ./configure --with-pjproject-bundled \
-    && make menuselect.makeopts && for SELECTED_MODULE in $ASTERISK_MODULES; do menuselect/menuselect --enable $SELECTED_MODULE menuselect.makeopts; done; \
+    && cd ../asterisk && rm -Rf /usr/src/patch && make clean && make distclean && ./contrib/scripts/get_mp3_source.sh \
+    # https://git.alpinelinux.org/aports/plain/main/asterisk/APKBUILD
+    && sed -i -e 's/ASTSSL_LIBS:=$(OPENSSL_LIB)/ASTSSL_LIBS:=-Wl,--no-as-needed $(OPENSSL_LIB) -Wl,--as-needed/g' main/Makefile \
+    && ./configure --with-pjproject-bundled \
+    && make menuselect.makeopts && menuselect/menuselect $(for SELECTED_MODULE in $ASTERISK_MODULES; do echo --enable $SELECTED_MODULE; done;) menuselect.makeopts \
+    && menuselect/menuselect --disable BUILD_NATIVE menuselect.makeopts; \
     make && make install && make samples
 
-ENTRYPOINT ["/usr/sbin/asterisk","-cvvvddd"]
+ENTRYPOINT ["/bin/sh"]
