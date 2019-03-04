@@ -4,3 +4,5 @@ services:
 
   asterisk:
     build: ./
+    volumes:
+      - "./conf.d:/etc/asterisk/"

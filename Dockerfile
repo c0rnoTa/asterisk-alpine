@@ -2,14 +2,18 @@ FROM alpine:latest
 
 MAINTAINER Anton Zakharov hello@antonzakharov.ru
 
+ENV ASTERISK_MODULES_ENABLE format_mp3
+ENV ASTERISK_MODULES_DISABLE BUILD_NATIVE
+ENV ASTERISK_CATEGORY_DISABLE MENUSELECT_CORE_SOUNDS MENUSELECT_MOH MENUSELECT_EXTRA_SOUNDS
+
 WORKDIR /usr/src
 
 # Copy sources to /usr/src/asterisk directory
 ADD src/*.tar.gz ./
 RUN mv asterisk-* asterisk
 
-COPY patches/musl-glob-compat.patch asterisk/
-COPY patches/musl-mutex-init.patch asterisk/
+COPY patches/musl-glob-compat.patch patches/musl-mutex-init.patch asterisk/
+COPY patches/asterisk-addon-mp3-r201.patch asterisk/addons/
 
 # Install compile deps
 RUN apk update \
@@ -21,10 +25,22 @@ RUN apk update \
 
 WORKDIR asterisk
 
-RUN patch -p1 < ./musl-glob-compat.patch
-RUN patch -p1 < ./musl-mutex-init.patch
+# Apply patches
+RUN patch -p1 < ./musl-glob-compat.patch && patch -p1 < ./musl-mutex-init.patch
+RUN cd addons; patch -p1 < ./asterisk-addon-mp3-r201.patch
 
-RUN ./configure && make && make install
+# Configure installer
+RUN ./configure && make menuselect.makeopts
+
+# Select and deselect modules
+RUN set -ex; menuselect/menuselect \
+    # Enable modules
+    $(for MODULE in $ASTERISK_MODULES_ENABLE; do echo --enable $MODULE; done;) \
+    # Disable modules
+    $(for MODULE in $ASTERISK_MODULES_DISABLE; do echo --disable $MODULE; done;) \
+    # Disable categories
+    $(for CATEGORY in $ASTERISK_CATEGORY_DISABLE; do echo --disable-category $CATEGORY; done;) menuselect.makeopts \
+    && make -j "$(nproc)" && make install
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]

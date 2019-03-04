@@ -12,7 +12,7 @@
 
 if [ "$1" = "" ]; then
   # This works if CMD is empty or not specified in Dockerfile
-  exec "/usr/sbin/asterisk -vvvdddfn -T -U root -p"
+  exec asterisk -vvvdddfn -T -U root -p
 else
-  exec "$@"
+  exec $@
 fi
