@@ -6,3 +6,4 @@ services:
     build: ./
     volumes:
       - "./conf.d:/etc/asterisk/"
+    network_mode: host

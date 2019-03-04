@@ -42,5 +42,7 @@ RUN set -ex; menuselect/menuselect \
     $(for CATEGORY in $ASTERISK_CATEGORY_DISABLE; do echo --disable-category $CATEGORY; done;) menuselect.makeopts \
     && make -j "$(nproc)" && make install
 
+#EXPOSE 5060/udp 10000-20000/udp
+
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]

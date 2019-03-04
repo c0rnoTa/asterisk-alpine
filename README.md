@@ -1,3 +1,15 @@
+### Usage
+```bash
+# Clone the repository
+git clone https://github.com/c0rnoTa/asterisk-alpine
+# Download asterisk sources to `src` direcotry
+cd asterisk-alpine/src
+wget https://downloads.asterisk.org/pub/telephony/certified-asterisk/asterisk-certified-13.21-cert3.tar.gz
+# Run the composer
+cd ..
+docker-compose up
+```
+
 ### NOTES
 
 build-base
