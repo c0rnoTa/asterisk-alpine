@@ -7,3 +7,5 @@ services:
     volumes:
       - "./conf.d:/etc/asterisk/"
     network_mode: host
+    cap_add:
+     - SYS_NICE
