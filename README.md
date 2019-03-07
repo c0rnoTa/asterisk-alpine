@@ -1,4 +1,4 @@
-### Usage
+# Usage
 ```bash
 # Clone the repository
 git clone https://github.com/c0rnoTa/asterisk-alpine
@@ -10,57 +10,74 @@ cd ..
 docker-compose up
 ```
 
-### NOTES
+# Notes
 
 build-base
 ---
-* (1/19) Installing binutils
-* (2/19) Installing libmagic
-* (3/19) Installing file
-* (4/19) Installing gmp
-* (5/19) Installing isl
-* (6/19) Installing libgomp
-* (7/19) Installing libatomic
-* (8/19) Installing libgcc
-* (9/19) Installing mpfr3
-* (10/19) Installing mpc1
-* (11/19) Installing libstdc++
-* (12/19) Installing gcc
-* (13/19) Installing musl-dev
-* (14/19) Installing libc-dev
-* (15/19) Installing g++
-* (16/19) Installing make
-* (17/19) Installing fortify-headers
+1. Installing binutils
+2. Installing libmagic
+3. Installing file
+4. Installing gmp
+5. Installing isl
+6. Installing libgomp
+7. Installing libatomic
+8. Installing libgcc
+9. Installing mpfr3
+10. Installing mpc1
+11. Installing libstdc++
+12. Installing gcc
+13. Installing musl-dev
+14. Installing libc-dev
+15. Installing g++
+16. Installing make
+17. Installing fortify-headers
+
+odbc deps
+---
+1. unixodbc-dev - UnixODBC package
+   1. Installing readline
+   2. Installing unixodbc
+   3. Installing unixodbc-dev
+  
+2. psqlodbc - PostgreSQL ODBC connector
+   1. Installing db
+   2. Installing libsasl
+   3. Installing libldap
+   4. Installing libpq
+   5. Installing psqlodbc
+   
+3. mariadb-connector-c - MySQL ODBC connector (MariaDB originally)
+
 
 asterisk deps
 ---
 * ncurses-dev - termcap support
-  * (1/5) Installing ncurses-terminfo-base
-  * (2/5) Installing ncurses-terminfo
-  * (3/5) Installing ncurses-libs
-  * (4/5) Installing pkgconf
-  * (5/5) Installing ncurses-dev
+   1. Installing ncurses-terminfo-base
+   2. Installing ncurses-terminfo
+   3. Installing ncurses-libs
+   4. Installing pkgconf
+   5. Installing ncurses-dev
 
 * util-linux-dev - uuid support
-  * (1/6) Installing libuuid
-  * (2/6) Installing libblkid
-  * (3/6) Installing libfdisk
-  * (4/6) Installing libmount
-  * (5/6) Installing libsmartcols
-  * (6/6) Installing util-linux-dev
+   1. Installing libuuid
+   2. Installing libblkid
+   3. Installing libfdisk
+   4. Installing libmount
+   5. Installing libsmartcols
+   6. Installing util-linux-dev
 
 * jansson-dev - JSON support
-  * (1/2) Installing jansson
-  * (2/2) Installing jansson-dev
+   1. Installing jansson
+   2. Installing jansson-dev
 
 * libxml2-dev - The Asterisk menuselect tool
-  * (1/3) Installing zlib-dev
-  * (2/3) Installing libxml2
-  * (3/3) Installing libxml2-dev
+   1. Installing zlib-dev
+   2. Installing libxml2
+   3. Installing libxml2-dev
 
 * sqlite-dev - Asterisk now uses SQLite3 
-  * (1/2) Installing sqlite-libs
-  * (2/2) Installing sqlite-dev
+   1. Installing sqlite-libs
+   2. Installing sqlite-dev
  
 * bsd-compat-headers - sys/cdefs.h: No such file or directory
 
