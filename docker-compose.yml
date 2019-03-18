@@ -5,7 +5,11 @@ services:
   asterisk:
     build: ./
     volumes:
-      - "./conf.d:/etc/asterisk/"
-    network_mode: host
+      - "./etc/asterisk/:/etc/asterisk/"
     cap_add:
      - SYS_NICE
+
+  db:
+    image: "mysql:5"
+    environment:
+      - MYSQL_ROOT_PASSWORD=example

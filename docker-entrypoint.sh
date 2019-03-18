@@ -10,8 +10,9 @@
 #  dockerize -template "$i":"`echo $i|sed s/.tmpl//`";
 #done
 
+
 if [ "$1" = "" ]; then
-  # This works if CMD is empty or not specified in Dockerfile
+  # It works if CMD is empty or not specified in Dockerfile
   exec asterisk -vvvdddfn -T -U root -p
 else
   exec $@

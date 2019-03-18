@@ -2,7 +2,7 @@ FROM alpine:latest
 
 MAINTAINER Anton Zakharov hello@antonzakharov.ru
 
-ENV ASTERISK_MODULES_ENABLE format_mp3 chan_sip pbx_ael
+ENV ASTERISK_MODULES_ENABLE format_mp3 chan_sip pbx_ael cdr_odbc
 ENV ASTERISK_MODULES_DISABLE BUILD_NATIVE
 ENV ASTERISK_CATEGORY_DISABLE MENUSELECT_CORE_SOUNDS MENUSELECT_MOH MENUSELECT_EXTRA_SOUNDS
 
@@ -21,7 +21,19 @@ RUN apk update \
      # Apply patches
      patch \
      # Core compile dependencies
-     build-base ncurses-dev util-linux-dev jansson-dev libxml2-dev sqlite-dev bsd-compat-headers
+     build-base ncurses-dev util-linux-dev jansson-dev libxml2-dev sqlite-dev bsd-compat-headers \
+     # ODBC compile dependencies
+     # git cmake
+     libressl-dev unixodbc-dev
+
+# Install ODBC
+#RUN git clone https://github.com/MariaDB/mariadb-connector-odbc.git \
+#    && cd mariadb-connector-odbc && git checkout v3.0.8-release \
+#    && cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCONC_WITH_UNIT_TESTS=Off -DCONC_WITH_MSI=OFF -DCMAKE_INSTALL_PREFIX=/usr/ . \
+#    && cmake --build . --config RelWithDebInfo \
+#    && make install
+
+COPY lib/ /usr/lib/
 
 WORKDIR asterisk
 
@@ -43,6 +55,8 @@ RUN set -ex; menuselect/menuselect \
     && make -j "$(nproc)" && make install
 
 #EXPOSE 5060/udp 10000-20000/udp
+
+COPY etc/odbc* /etc/
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
