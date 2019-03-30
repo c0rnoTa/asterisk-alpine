@@ -35,19 +35,10 @@ build-base
 odbc deps
 ---
 1. unixodbc-dev - UnixODBC package
-   1. Installing readline
-   2. Installing unixodbc
-   3. Installing unixodbc-dev
-
-unixodbc-dev
-(1/7) Installing pkgconf (1.6.0-r0)
-(2/7) Installing ncurses-terminfo-base (6.1_p20190105-r0)
-(3/7) Installing ncurses-terminfo (6.1_p20190105-r0)
-(4/7) Installing ncurses-libs (6.1_p20190105-r0)
-(5/7) Installing readline (7.0.003-r1)
-(6/7) Installing unixodbc (2.3.7-r0)
-(7/7) Installing unixodbc-dev (2.3.7-r0)
-
+   1. Installing ncurses-dev
+   2. Installing readline
+   3. Installing unixodbc
+   4. Installing unixodbc-dev
   
 2. psqlodbc - PostgreSQL ODBC connector
    1. Installing db
@@ -56,7 +47,7 @@ unixodbc-dev
    4. Installing libpq
    5. Installing psqlodbc
    
-3. git - Build MariaDB dependencies
+3. **NOT USED** git - Build MariaDB dependencies
    1. Installing ca-certificates (20190108-r0)
    1. Installing nghttp2-libs (1.35.1-r0)
    1. Installing libssh2 (1.8.0-r4)
@@ -65,7 +56,7 @@ unixodbc-dev
    1. Installing pcre2 (10.32-r1)
    1. Installing git (2.20.1-r0)
 
-4. cmake - Compile ODBC
+4. **NOT USED** cmake - Compile ODBC
    1. (1/19) Installing libattr (2.4.47-r7)
    1. (2/19) Installing libacl (2.2.52-r5)
    1. (3/19) Installing libbz2 (1.0.6-r6)
@@ -87,40 +78,40 @@ unixodbc-dev
    1. (19/19) Installing cmake (3.13.0-r0)
 
 5. libressl - SSL ODBC
-(1/4) Installing libressl2.7-libcrypto (2.7.5-r0)
-(2/4) Installing libressl2.7-libssl (2.7.5-r0)
-(3/4) Installing libressl2.7-libtls (2.7.5-r0)
-(4/4) Installing libressl (2.7.5-r0)
+   1. Installing libressl2.7-libcrypto
+   2. Installing libressl2.7-libssl
+   3. Installing libressl2.7-libtls
+   4. Installing libressl
 
 
 asterisk deps
 ---
 * ncurses-dev - termcap support
-   1. Installing ncurses-terminfo-base
-   2. Installing ncurses-terminfo
-   3. Installing ncurses-libs
+   1. Installing **ncurses-terminfo-base**
+   2. Installing **ncurses-terminfo**
+   3. Installing **ncurses-libs**
    4. Installing pkgconf
    5. Installing ncurses-dev
 
 * util-linux-dev - uuid support
-   1. Installing libuuid
-   2. Installing libblkid
-   3. Installing libfdisk
-   4. Installing libmount
-   5. Installing libsmartcols
+   1. Installing **libuuid**
+   2. Installing **libblkid**
+   3. Installing **libfdisk**
+   4. Installing **libmount**
+   5. Installing **libsmartcols**
    6. Installing util-linux-dev
 
 * jansson-dev - JSON support
-   1. Installing jansson
+   1. Installing **jansson**
    2. Installing jansson-dev
 
 * libxml2-dev - The Asterisk menuselect tool
    1. Installing zlib-dev
-   2. Installing libxml2
+   2. Installing **libxml2**
    3. Installing libxml2-dev
 
 * sqlite-dev - Asterisk now uses SQLite3 
-   1. Installing sqlite-libs
+   1. Installing **sqlite-libs**
    2. Installing sqlite-dev
  
 * bsd-compat-headers - sys/cdefs.h: No such file or directory
