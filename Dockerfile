@@ -54,7 +54,7 @@ RUN set -ex; apk update \
 
 COPY /etc/asterisk/basic-pbx/ /etc/asterisk/
 
-#EXPOSE 5060/udp 10000-20000/udp
+EXPOSE 5060/udp
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
