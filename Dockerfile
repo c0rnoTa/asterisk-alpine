@@ -52,6 +52,8 @@ RUN set -ex; apk update \
     && cd ..; rm -Rf asterisk \
     && apk del .build-deps
 
+COPY /etc/asterisk/basic-pbx/ /etc/asterisk/
+
 #EXPOSE 5060/udp 10000-20000/udp
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
